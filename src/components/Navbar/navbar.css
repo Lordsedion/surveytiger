@@ -1,0 +1,111 @@
+.but-with-blue-bg {
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: var(--box-shadow);
+}
+.but-with-blue-text {
+    color: var(--color-tr-bg);
+    background-color: var(--color-bg-light);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--color-primary);
+    transition: var(--transition);
+    margin: 0 0.3rem;
+}
+.but-with-blue-text:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary-dark);
+}
+.but-with-blue-bg:hover {
+    background: var(--color-primary-dark);
+}
+.nav-container {
+    /* height: .6%; */
+    background: var(--transparent);
+    backdrop-filter: blur(15px);
+    z-index: 99;
+    padding: 0.5rem 0;
+    display: flex;
+    position: sticky;
+    width: 100%;
+    left: 0;
+    top: 0;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.logo-header {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+.night-round {
+    padding: 0.3rem;
+}
+.navLinks {
+    margin: 0.1rem 0.4rem;
+    padding: 0 0.4rem;
+    display: inline-block;
+    font-size: 0.96rem;
+    color: var(--color-light-dark);
+}
+.nav-c-bbb {border-bottom: 1px solid rgba(217, 212, 212, 0.682);}
+.navLinks:hover {
+    color: var(--color-primary);
+}
+.logged-in-user {
+    font-size: 0.9rem;
+    color: var(--color-dark);
+    transition: var(--transition);
+}
+.logged-in-user:hover {
+    color: var(--color-primary);
+}
+.b-u-icon {
+    color: var(--color-primary);
+}
+.right-2-nav {
+    display: none;
+    font-size: 1.3rem;
+}
+
+/* =====================================  side navbar  =================================== */
+.side-navbar {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-bg);
+    overflow: scroll;
+    height: 100vh;
+    width: 100vw;
+}
+.side-nav-links a{
+    padding: 0.8rem;
+    margin: 0.2rem 0;
+    box-shadow: 2px 1px 1px rgb(208, 205, 205);
+    background-color: var(--color-bg);
+}
+.link-ctn {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+.vsb {
+    visibility: hidden;
+    height: 10rem;
+}
+
+@media screen  and (min-width: 1024px) {
+    .side-navbar {display: none !important;}
+}
+
+@media screen  and (max-width: 1024px) {
+    .right-nav, .header-links {
+        display: none;
+    }
+    .right-2-nav {display: flex; align-items: center;}
+    .nav-container {
+        justify-content: space-between;
+        padding: 0.4rem 1rem;
+    }
+}
+
+

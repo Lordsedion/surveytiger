@@ -1,0 +1,74 @@
+.sideprofile-ctn {
+    display: flex;
+    flex-direction: column;
+    max-width: 17%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding: 0 0.3rem ;
+    left: 0;
+}
+.sideprofile-ctn::-webkit-scrollbar {
+    display: none;
+  }
+.r-12-ccmp  {
+    padding: 0.6rem 0;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid #94929231;
+}
+.r-ac-11-lft p {
+    font-size: 1.4rem;
+}
+.r-ac-11-rgt p {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.rpof-rec-acts-b h4 {
+    margin: 1.5rem 0 0.5rem 0;
+    color: var(--color-light-text);
+}
+.rpof-rec-acts-b {
+    padding: 0.3rem 0.8rem;
+    margin: 0.6rem 0;
+    border-radius: 0.3rem;
+    background-color: var(--color-bg);
+}
+.rpof-rec-acts-b button {
+    margin: 1rem auto;
+    transform:translateX(-50%);
+    position: relative;
+    left: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+.top-img-ctn-pic-c {
+    width: 50%;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.top-img-ctn {
+    margin: 0.7rem 0;
+    padding: 1rem;
+    background: var(--color-bg);
+    border-radius: 0.3rem;
+    text-align: center;
+}
+.prof-fname {
+    margin-top: 0.4rem;
+}
+.prof-uname {
+    font-weight: 700;
+}
+
+@media screen and (max-width:1200px) {
+
+    .sideprofile-ctn {display: none;}
+  }
+
+
+

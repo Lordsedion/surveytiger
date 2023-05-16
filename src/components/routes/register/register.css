@@ -1,0 +1,232 @@
+.register {
+    min-height: 100vh;
+    padding: 2rem 5%;
+    background-color: var(--alice);
+}
+.form-reg-ctn {
+    background:linear-gradient(180deg,var(--alice), var(--color-primary-light-1), var(--alice)) ;
+    backdrop-filter: blur(5px);
+    padding: 2rem 2.3rem;
+    margin: 1rem auto 1rem auto;
+    box-shadow: var(--shiny-box);
+    width: 50%;
+}
+
+.form-reg-ctn form {
+    display: flex;
+    flex-direction: column;
+}
+.g-g-11 {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0.7rem 0;
+}
+.g-g-11 ::placeholder {
+    font-size: 1.2rem;
+    color: var(--color-light-text);
+    /* text-shadow: 1px 1px 0.1px var(--color-tr-bg); */
+    margin: 0.2rem 0.2rem;
+}
+.g-g-11 input {
+    padding: 0.7rem;
+    width: 100%;
+    border-bottom: 3px solid rgb(255, 255, 255);
+    font-size: 1.3rem;
+    border-radius: 0.3rem;
+    background: var(--alice1);
+    box-shadow: 1px 1px 3px rgb(145, 194, 238);
+}
+.sub-reg-butn {
+    width: fit-content;
+    padding: 0.8rem 2rem;
+    color: var(--color-white);
+    margin: 1rem auto;
+    box-shadow: var(--shiny-box);
+    background: rgba(32, 122, 240, 0.645);
+    font-size: 1.2rem;
+}
+.flx-clock-t {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.clock {
+    width: 25%;
+    aspect-ratio: 1/1;
+    position: relative;
+    padding: 2rem;
+    border: 7px solid var(--clock-bg1);
+    box-shadow: -4px -4px 10px var(--clock-bg),
+                  inset 4px 4px 10px var(--clock-bg),
+                  inset -4px -4px 10px var(--clock-bg),
+                  4px 4px 10px var(--clock-bg);
+    border-radius: 50%;
+    margin: 50px auto;
+  }
+  .outer-clock-face {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+  
+  .outer-clock-face::after {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg)
+  }
+  
+  .outer-clock-face::after,
+  .outer-clock-face::before,
+  .outer-clock-face .marking{
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background: var(--color-primary);
+    z-index: 0;
+    left: 49%;
+  }
+
+  .outer-clock-face .marking {
+    background: var(--color-primary);
+    width: 3px;
+  }
+  
+  .outer-clock-face .marking.marking-one {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    transform: rotate(30deg)
+  }
+  
+  .outer-clock-face .marking.marking-two {
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    transform: rotate(60deg)
+  }
+  
+  .outer-clock-face .marking.marking-three {
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    transform: rotate(120deg)
+  }
+  
+  .outer-clock-face .marking.marking-four {
+    -webkit-transform: rotate(150deg);
+    -moz-transform: rotate(150deg);
+    transform: rotate(150deg)
+  }
+  .inner-clock-face {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    background: var(--alice2);
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    z-index: 1;
+  }
+  
+  .inner-clock-face::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 18px;
+    margin-left: -9px;
+    margin-top: -6px;
+    background: #4d4b63;
+    z-index: 11;
+  }
+  .hand {
+    width: 50%;
+    right: 50%;
+    height: 6px;
+    background: #61afff;
+    position: absolute;
+    top: 50%;
+    border-radius: 6px;
+    transform-origin: 100%;
+    transform: rotate(90deg);
+    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+  }
+  
+  .hand.hour-hand {
+    width: 30%;
+    z-index: 3;
+  }
+  
+  .hand.min-hand {
+    height: 3px;
+    z-index: 10;
+    width: 40%;
+  }
+  
+  .hand.second-hand {
+    background: #ee791a;
+    width: 45%;
+    height: 2px;
+  }
+
+  .aba-1 {
+    position: absolute;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    top: 50%;
+    right: 4%;
+  }
+
+  @media screen and (max-width:995px) {
+    .form-reg-ctn {
+        width: 100%;
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+  }
+  @media screen and (max-width:768px) {
+    .form-reg-ctn {
+        padding: 2rem 1rem;
+    }
+    .register {
+        /* margin-left: 2%;
+        margin-right: 2%; */
+    }
+    .g-g-11 input {
+        width: 100%;
+    }
+    .clock {
+        width: 50%;
+    }
+  }
+  @media screen and (max-width:500px) {
+    .clock {
+        width: 70%;
+        display: none;
+    }
+    .register {
+      padding-left: 1%;
+      padding-right: 1%;
+    }
+    .form-reg-ctn {
+      width: 100%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .g-g-11 input {
+      padding: 0.7rem;
+      width: 100%;
+      border-bottom: 0;
+      font-size: 1.3rem;
+      border-radius: 0.3rem;
+      /* box-shadow: 1px 1px 3px rgb(145, 194, 238); */
+  }
+  }
+
+

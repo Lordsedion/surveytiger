@@ -1,0 +1,29 @@
+.loading {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    /* background: rgb(221, 33, 33); */
+    background: rgba(255, 255, 255, 0.027);
+    backdrop-filter: blur(3px);
+}
+.loading-text {
+    width: fit-content;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    /* left: 50%; */
+    transform: translate(0%, -50%);
+}
+.loading-text span {
+    display: inline-block;
+    margin: 0 0.3rem;
+    color: var(--color-light-text);
+    font-weight: 600;
+}
+
+.wave-1-up {
+    transform: translateY(-30%);    
+}
+

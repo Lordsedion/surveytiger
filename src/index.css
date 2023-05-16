@@ -1,13 +1,183 @@
-body {
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+
+*  {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  list-style: none;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  font-family: BinancePlex,Arial,sans-serif!important;    text-decoration: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button {
+  background: #c1bfbf7e;
+  padding: 0.24rem 1.3rem;
+  border-radius: 0.2rem;
 }
+
+.block {
+  display: block !important;
+}
+.none {
+  display: none !important;
+}
+:root {
+  --color-primary: rgb(29, 81, 223);
+  --color-primary-dark: rgb(21, 67, 196);
+  --color-primary-light-1: rgba(62, 109, 240, 0.253);
+  --color-white: #fff;
+  --color-bg: #fff;
+  --color-r-bg: rgba(9, 9, 12, 0.495);
+  --color-tr-bg: rgb(5, 5, 5);
+  --color-lbg: rgb(225, 220, 220);
+  --color-lbg-1: rgb(242, 241, 241);
+  --transparent: #ffffff00;
+  --color-light-text: rgb(40, 40, 40);
+  --clock-bg: rgba(56, 55, 55, 0.5);
+  --clock-bg1: rgba(109, 108, 108, 0.283);
+  --color-text: rgb(0, 0, 0);
+  --transition: all 0.2s ease;
+  --box-shadow: 4px 4px 15px rgb(195, 193, 193);
+  --box-shadow-slim: 1px 1px 3px rgb(195, 193, 193);
+  --card-color: #fff;
+  --alice: rgb(158, 211, 255);
+  --alice2: rgb(158, 211, 255);
+  --shiny-box: 4px 4px 10px rgb(145, 181, 215);
+  --alice1: rgba(255, 255, 255, 0.185);
+  --sub-bg: rgba(227, 225, 225, 0.791);;
+}
+ 
+[data-theme='dark'] {
+  --transparent: rgb(9, 9, 12);
+  --alice: rgba(52, 50, 50, 0.286);
+  --alice2: rgb(22, 21, 21);
+  --alice1: rgba(18, 17, 17, 0.645);
+  --shiny-box: 4px 4px 10px rgba(50, 84, 117, 0.568);
+  --color-bg: rgb(9, 9, 12);
+  --clock-bg: rgba(96, 92, 92, 0.5);
+  --clock-bg1: rgba(255, 252, 252, 0.5);
+  --card-color: rgba(44, 43, 43, 0.68);
+  --color-lbg: rgba(255, 255, 255, 0.073);
+  --color-lbg-1: rgba(255, 255, 255, 0.073);
+  --color-tr-bg: rgb(255, 255, 255);
+  --color-r-bg: rgb(255, 255, 255);
+  --color-text: rgb(255, 255, 255);
+  --sub-bg:rgba(45, 47, 47, 0.636);
+  --color-light-text: rgb(255, 255, 255);
+  --box-shadow: 4px 4px 10px rgba(69, 68, 68, 0.348);
+  --box-shadow-slim: 1px 1px 3px rgba(69, 68, 68, 0.348);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+#root {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 0.2rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #191818;
+}
+
+.color-primary {
+  color: var(--color-primary) !important;
+}
+.white {
+  color: #fff !important;
+}
+.border-radius {
+  border-radius: 0.3rem;
+}
+.bg-color {background: var(--color-bg)}
+.bg-primary {
+  background: var(--color-primary) !important;
+}
+.d-god-c {
+  display: flex;
+  grid-template-columns: 0.16fr 0.68fr 0.16fr;
+  background-color: var(--sub-bg);
+}
+.m-2-112-- {
+  flex-grow: 1;
+}
+h1 {
+  font-size: 2.8rem;
+}
+h3 {
+  font-size: 1.6rem;
+}
+h4 {
+  font-size: 1.1rem;
+}
+h2 {
+  font-size: 2rem;
+}
+.top-0 {
+  top: 0;
+}
+.sorry-bro {
+  display: none;
+  position: sticky;
+  z-index: 99;
+  top: 0;
+}
+@media screen and (max-width:1200px) {
+  .d-god-c {
+    grid-template-columns: 0.22fr 0.78fr;
+  }
+}
+@media screen and (max-width:1024px) {
+  .d-god-c {
+    display: block;
+    overflow-x: hidden;
+  }
+  .sorry-bro {display:block;}
+}
+@media screen and (max-width:500px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  /* <a href="https://www.freepik.com/free-vector/light-bulb-with-word-idea_958465.htm#query=idea%20bulb&position=4&from_view=search&track=ais">Image by Sapann-Design</a> on Freepik 
+ <a href="https://www.freepik.com/free-vector/business-background-design_1072818.htm#query=idea%20bulb&position=11&from_view=search&track=ais">Image by cornecoba</a> on Freepik 
+ Image by <a href="https://www.freepik.com/free-vector/light-bulb-infographic_3666608.htm#query=idea%20bulb&position=12&from_view=search&track=ais">Freepik</a>
+ Image by <a href="https://www.freepik.com/free-vector/light-bulb-infographic_3666608.htm#query=idea%20bulb&position=12&from_view=search&track=ais">Freepik</a>
+ <a href="https://www.freepik.com/free-vector/company-employees-use-web-search-find-ideas-doing-business-company_14245125.htm#query=research&position=5&from_view=search&track=sph">Image by jcomp</a> on Freepik 
+ */
+
+
