@@ -2,27 +2,132 @@ import React, {useEffect, useState, useCallback, createContext, useContext} from
 import {FaPlus, FaTimes} from 'react-icons/fa'
 import {BsCardImage,BsFillCameraVideoFill} from 'react-icons/bs'
 import {AiFillAudio} from 'react-icons/ai'
-import PreviewQ from './Prev.tsx'
 import './create.css'
+import { error } from 'console'
+import { title } from 'process'
+
+export const QuestionContext = createContext<MyContextValueType | undefined>(undefined);
+
+
+// ===================================INTERFACE==================================
+type MyContextValueType = {
+    image:imType[]
+    video:imType[]
+    audio:imType[]
+    answerType:string
+    question:string
+    renderOption:string
+    options:optionsType[]
+    optionsBool:optionsType[]
+    questionArray:questionArrayType[]
+    userInp:optionsType[]
+    peace:boolean
+    
+    setUserInp:React.Dispatch<React.SetStateAction<optionsType[]>>
+    setImages:React.Dispatch<React.SetStateAction<imType[]>>
+    setVideo:React.Dispatch<React.SetStateAction<imType[]>>
+    setAudio:React.Dispatch<React.SetStateAction<imType[]>>
+    setOptions:React.Dispatch<React.SetStateAction<optionsType[]>>
+    setOptionsBool:React.Dispatch<React.SetStateAction<optionsType[]>>
+    setQuestionArray:React.Dispatch<React.SetStateAction<questionArrayType[]>>
+    setAnswerType:(value:string)=>void
+    setQuestion:(value:string)=>void
+    setRenderOption:(value:string)=>void
+    setPeace:(value:boolean)=>void
+};
+interface forPrintQ {
+    someText:string
+    someId:number
+    someArray:any
+    setSArray:any
+}
+interface Tindiv {
+    opt:string
+    id:number
+    setArr:any
+    mid:number
+    type:string
+}
+interface pType{
+    id_:number
+}
+interface booleanType {
+    arr:any
+    setArr:any
+}
+interface rad {
+    id:number
+    radio:boolean
+    title:string
+    displayedOptions:string
+    options:any
+    setter:any
+    optionArray: any
+    setoptionArray: any
+}
+interface booleanType {
+    arr:any
+    setArr:any
+}
+interface rad {
+    id:number
+    radio:boolean
+    title:string
+    displayedOptions:string
+    options:any
+    setter:any
+    optionArray: any
+    setoptionArray: any
+}
+interface imType {
+    imageId:number,
+    image:any,
+}
+interface optionsType {
+    question:string
+    id:number
+}
+interface questionArrayType {
+    question: string
+    Options: any
+    id:number
+    typeofQ: string
+    qImage:any
+    qVideo:any
+    qAudio:any
+}
+interface thisType {
+    id_:number
+}
+interface surveyType {
+    title: string
+    questArray: any
+    budget: string
+    paid: boolean
+    isPublished: boolean
+}
+interface delModalType {
+    title:string
+    bool: boolean
+    someFunc: any
+    id:number
+}
+// =====================================INTERFACE ENDS=============================================
 
 const SomeCirc = ()=> {
     return (
         <p className='q-outline-c'></p>
     )
 }
-const SomeFilledCirc = ()=> {
+export const SomeFilledCirc = ()=> {
     return (
         <>
-            <p className='q-outline-c'></p><p className='q-fill-c flex items-center justify-center'><p className='the-in-w11'></p></p>
+            <p className='q-outline-c'></p>
+            <div className='q-fill-c flex items-center justify-center'>
+                <p className='the-in-w11'></p>
+            </div>
         </>
     )
-}
-
-interface forPrintQ {
-    someText:string
-    someId:number
-    someArray:any
-    setSArray:any
 }
 const PrintQ = (inp:forPrintQ)=> {
     const [smallState, setSmallState] = useState(inp.someText.valueOf())
@@ -40,57 +145,284 @@ const PrintQ = (inp:forPrintQ)=> {
         </div>
     )
 }
+const Individ = (inp:Tindiv)=> {
+    const useCont = useContext(QuestionContext)
+    const id_ = inp.id
+    const id = inp.mid
+    const [state1, setState1] = useState(inp.opt)
+    const questionArray= useCont?.questionArray!
+    const [userInp, setUserInp] = [useCont?.userInp!, useCont?.setUserInp!]
 
-interface booleanType {
-    arr:any
-    setArr:any
-}
-interface thisType {
-    arr:any
-    setArr:any
-    opt:string
-    id_:number
-}
-const BoolSmall = (inp:thisType)=> {
-    const [stateS, setStateS] = useState(inp.opt)
     return (
-        <p className='my-1 font-bold flex items-center gap-2'><SomeFilledCirc/><input type="text" value={stateS} onChange={
-            (e)=>{
-                inp.arr[inp.id_].question = e.target.value
-                setStateS(e.target.value)
-                inp.setArr(inp.arr)
-            }}/></p>
+        <>
+            <div className='my-3 font-bold flex items-center gap-2' key={id_}>
+                {inp.type === "uin" && id_== 0 && (
+                    <>
+                    <p>Minimum</p>
+                    <input type="text" className='gen-input' placeholder='Minimum number of words' value={state1}
+                        onChange={(ev)=>{
+                            let arr = ["1","2", "3", "4", "5", "6", "7", "8", "9", "0"] 
+                            const nativeEventData = (ev.nativeEvent as any).data;
+                            for (let i=0; i<arr.length; i++) {
+                            
+                                if (nativeEventData === arr[i]) {
+                                    const newArray = [...questionArray]
+                                    if (Number(ev.target.value) <= 25) {
+                                        newArray[id].Options[id_].question = ev.target.value
+                                        inp.setArr(newArray)
+                                    }
+                                    else {
+                                        alert("Omo, guy na 25 be the max")
+                                    } break
+                                }
+                                }
+                            if (nativeEventData === null) {
+                                const newArray = [...questionArray]
+                                newArray[id].Options[id_].question = newArray[id].Options[id_].question.slice(0, newArray[id].Options[id_].question.length-1)
+                                inp.setArr(newArray)
+                            }
+                        }}/>
+                    </>
+                )}
+                {inp.type === "uin" && id_== 1 && (
+                   <>
+                   <p>Maximum</p>
+                   <input type="text" className='gen-input' placeholder='Minimum number of words' value={state1}
+                        onChange={(ev)=>{
+                            let arr = ["1","2", "3", "4", "5", "6", "7", "8", "9", "0"] 
+                            const nativeEventData = (ev.nativeEvent as any).data;
+                            for (let i=0; i<arr.length; i++) {
+                            
+                                if (nativeEventData === arr[i]) {
+                                    const newArray = [...questionArray]
+                                    if (Number(ev.target.value) <= 50) {
+                                        newArray[id].Options[id_].question = ev.target.value
+                                        inp.setArr(newArray)
+                                    }
+                                    else {
+                                        alert("Omo, guy na 50 be the max")
+                                    } break
+                                }
+                                }
+                            if (nativeEventData === null) {
+                                const newArray = [...questionArray]
+                                newArray[id].Options[id_].question = newArray[id].Options[id_].question.slice(0, newArray[id].Options[id_].question.length-1)
+                                inp.setArr(newArray)
+                            }
+                        }}/>
+                   </>
+                )}
+                {inp.type !== "uin" && (
+                    <>
+                    <SomeCirc/>
+                   <input type='text' value={state1} onChange={
+                        (e)=> {
+                            setState1(e.target.value)
+                            const newArray = [...questionArray]
+                            newArray[id].Options[id_].question = e.target.value
+                            inp.setArr(newArray)
+                    }}/>
+                    </>
+                )}   
+            </div>
+        </>
     )
 }
-const BooleanAnswer = (inp:booleanType)=> {
-   if (inp.arr.length===0){
-        inp.arr.push({"question": "True", "id": 0})
-        inp.arr.push({"question": "Indifferent", "id": 1})
-        inp.arr.push({"question": "False", "id": 2})
-        inp.setArr(inp.arr)
+const PreviewQ = (inp:pType)=> {
+    const useCont = useContext(QuestionContext)
+    const id_ = inp.id_
+    const questionArray= useCont?.questionArray!
+    const setQuestionArray= useCont?.setQuestionArray!
+
+    useEffect(()=>{
+        if (questionArray[id_].qImage.length>0) {document.getElementById(`q-image${id_}`)?.setAttribute('value', questionArray[id_].qImage[0]["image"])}
+        else {
+            let inpe = document.getElementById(`q-image${id_}`) as HTMLInputElement
+            if (inpe){
+                inpe.value = ''
+            }
+        }
+    },[questionArray[id_].qImage])
+
+    useEffect(()=>{
+        if (questionArray[id_].qVideo.length>0) {document.getElementById(`q-video${id_}`)?.setAttribute('value', questionArray[id_].qVideo[0]["image"])}
+        else {
+            let inpe = document.getElementById(`q-video${id_}`) as HTMLInputElement
+            if (inpe){
+                inpe.value = ''
+            }
+        }
+    },[questionArray[id_].qAudio])
+
+    useEffect(()=>{
+        if (questionArray[id_].qAudio.length>0) {document.getElementById(`q-audio${id_}`)?.setAttribute('value', questionArray[id_].qAudio[0]["image"])}
+        else {
+            let inpe = document.getElementById(`q-audio${id_}`) as HTMLInputElement
+            if (inpe){
+                inpe.value = ''
+            }
+        }
+    },[questionArray[id_].qAudio])
+
+    function PreviewImage1(e:any){
+        const newArray = [...questionArray]
+        if (e.target.files.length > 0){
+            for (let i = 0; i < e.target.files.length; i++) {
+                 if (i+questionArray[id_].qImage.length >4){
+                    return alert('Maximum of 5 photos!')
+                }
+                newArray[id_].qImage.push({"imageId": questionArray[id_].qImage.length, "image": URL.createObjectURL(e.target.files[i])})
+            }
+            console.log(newArray)
+            setQuestionArray(newArray)
+        }
     }
+    function PreviewVideo1(e:any){
+        const uploadedFile = e.target.files[0]
+        const extension = uploadedFile.name.split('.').pop()
+        const allowedExtensions = ["mp4", "mpeg4"]
+        let isAllowed=false
+        for (let i=0; i<allowedExtensions.length; i++){
+            if (extension===allowedExtensions[i]) {isAllowed=true; break}
+        }
+        if (isAllowed) {
+           if (e.target.files.length > 0){
+            for (let i = 0; i < e.target.files.length; i++) {
+                const newArray = [...questionArray]
+                newArray[id_].qVideo.push({"imageId": questionArray[id_].qVideo.length, "image": URL.createObjectURL(e.target.files[i])})
+                setQuestionArray(newArray)
+            }
+        } 
+        } else {
+            return alert(`Error: Invalid extension`)
+        }
+        
+    }
+    function PreviewAudio1(e:any){
+        const uploadedFile = e.target.files[0]
+        const extension = uploadedFile.name.split('.').pop()
+        const allowedExtensions = ["mp3", "wav"]
+        const newArray = [...questionArray]
+        let isAllowed=false
+        for (let i=0; i<allowedExtensions.length; i++){
+            if (extension===allowedExtensions[i]) {isAllowed=true; break}
+        }
+        if (isAllowed) {
+           if (e.target.files.length > 0){
+            for (let i = 0; i < e.target.files.length; i++) {
+                if (i+questionArray[id_].qAudio.length >2){
+                    return alert('Maximum of 3 audio files!')
+                }
+                newArray[id_].qAudio.push({"imageId": questionArray[id_].qAudio.length, "image": URL.createObjectURL(e.target.files[i])})
+            }
+            setQuestionArray(newArray)
+        } 
+        } else {
+            return alert(`Error: Invalid extension`)
+        }
+        
+    }
+
+    function handleDelete1(index:number) {
+        const newArray = [...questionArray]
+        newArray[id_].qImage.splice(index, 1)
+        for (let i=0; i<newArray[id_].qImage.length; i++) {
+            newArray[id_].qImage[i]["imageId"] = i
+        }
+        setQuestionArray(newArray)
+    }
+    function handleDeleteA1(index:number) {
+        const newArray = [...questionArray]
+        newArray[id_].qAudio.splice(index, 1)
+        for (let i=0; i<newArray[id_].qAudio.length; i++) {
+            newArray[id_].qAudio[i]["imageId"] = i
+        }
+        setQuestionArray(newArray)
+    }
+    function handleDeleteV1(index:number) {
+        const newArray = [...questionArray]
+        newArray[id_].qVideo.splice(index, 1)
+        for (let i=0; i<newArray[id_].qVideo.length; i++) {
+            newArray[id_].qVideo[i]["imageId"] = i
+        }
+        setQuestionArray(newArray)
+    }
+
     return (
-        <div className="boolen-ans-1">
-            <ul>
+        <div className="prev-11-q-item my-8">
+            <div className="prev-11-w-1 flex gap-4">
+                <p className='font-bold'>{id_+1}</p>
+                <textarea name="prev-q-1" id="" cols={50} rows={3} value={questionArray[id_].question}
+             onChange={
+                    (e)=> {
+                        const newArray = [...questionArray]
+                        newArray[id_].question = e.target.value
+                        setQuestionArray(newArray)
+                    }
+                }></textarea>
+            </div>
+            <div className="some-image-102">
+                <div className="files-add-001">
+                    <input type="file" name='attachment-image' aria-hidden='true' className='hiddenV' id={`q-image${id_}`} multiple={true} onChange={(e)=>{
+                       PreviewImage1(e)                       
+                    }} />
+                    <input type="file" name='attachment-video' aria-hidden='true' className='hiddenV' id={`q-video${id_}`} multiple={false} onChange={(e)=>{
+                        PreviewVideo1(e)
+                    }} />
+                    <input type="file" name='attachment-audio' aria-hidden='true' className='hiddenV' id={`q-video${id_}`} multiple={true} onChange={(e)=>{
+                        PreviewAudio1(e)
+                    }} />
+                <div className="bg-mann">
+                    <p onClick={()=> {
+                        document.getElementById(`q-image${id_}`)?.click()
+                        }}><BsCardImage/></p>
+                    <span>Upload Image</span>
+                    </div>
+                    <div className="bg-mann">
+                    <p onClick={()=>{document.getElementById(`q-video${id_}`)?.click()}}><BsFillCameraVideoFill/></p>
+                    <span>Upload Video</span>
+                    </div>
+                    <div className="bg-mann">
+                    <p onClick={()=>{document.getElementById(`q-audio${id_}`)?.click()}}><AiFillAudio/></p>
+                    <span>Upload Audio</span>
+                    </div>
+                    </div>
+            </div>
+            <div className="image-section-que my-5 mx-8 flex gap-3" id='image-section-que'>
                 {
-                    inp.arr.map((items:any)=>(
-                        <BoolSmall arr={inp.arr} setArr={inp.setArr} opt={items.question} id_={items.id}/>
+                    questionArray[id_].qImage.map((img:any) => (
+                        <div className="relative" key={img.imageID}>
+                            <img src={img.image} alt={`${img.imageId}`} className='q-image-iden'/> 
+                            <p className='lov-112' onClick={()=>{handleDelete1(img.imageId)}}><FaTimes/></p>
+                        </div>
                     ))
                 }
-            </ul>
+                {
+                    questionArray[id_].qVideo.map((img:any) => (
+                        <div className="relative">
+                            <video src={img.image} className='q-image-iden' id='q-video-iden'/> 
+                            <p className='lov-112' onClick={()=>{handleDeleteV1(img.imageId)}}><FaTimes/></p>
+                        </div>
+                    ))
+                }
+                {
+                    questionArray[id_].qAudio.map((img:any) => (
+                        <div className="relative p-1 nk-w4">
+                            <audio controls id='q-audio-iden'>
+                                <source src={img.image}/>
+                                </audio>
+                            <p className='lov-112' onClick={()=>{handleDeleteA1(img.imageId)}}><FaTimes/></p>
+                        </div>
+                    ))
+                }
+            </div>
+            <div className="ans-pre">
+                {questionArray[id_].Options.map((item:any)=> (
+                    <Individ opt={item.question} id={item.id} setArr={setQuestionArray} type={questionArray[id_].typeofQ} mid={id_} key={item.id}/>
+                ))}
+            </div>
         </div>
     )
-}
-
-interface rad {
-    id:number
-    radio:boolean
-    title:string
-    displayedOptions:string
-    options:any
-    setter:any
-    optionArray: any
-    setoptionArray: any
 }
 const RadioAnswer = (radio:rad)=> {
     // const [isRadio, setIsRadio] = useState(false)
@@ -103,76 +435,125 @@ const RadioAnswer = (radio:rad)=> {
         </div>
     )
 }
+const BoolSmall = (inp:thisType)=> {
+    const useCont = useContext(QuestionContext)
+    const optionsBool = useCont?.optionsBool!
+    const setOptionsBool = useCont?.setOptionsBool!
+    const [stateS, setStateS] = useState(optionsBool[inp.id_].question)
 
-interface Tindiv {
-    opt:string
-    arr:any
-    setArr:any
-    qarr:any
-    setQ:any
-    id:number
-    mid:number
-    type:string
-}
-const Individ = (inp:Tindiv)=> {
-    const [state, setState] = useState(inp.opt)
     return (
-        <>
-            <p className='my-3 font-bold flex items-center gap-2'><SomeCirc/><input type='text' value={state} onChange={
-                (e)=> {
-                    inp.setArr(e.target.value)
-                    setState(e.target.value)
-                    inp.qarr[inp.mid]['Options'][inp.id]['question'] = e.target.value
-                    inp.setQ(inp.qarr)
-            }}/></p>
-        </>
+        <li className='my-1 font-bold flex items-center gap-2'><SomeFilledCirc/><input type="text" value={stateS} onChange={
+            (e)=>{
+                const newArr =  [...optionsBool]
+                newArr[inp.id_].question = e.target.value
+                setStateS(e.target.value)
+                setOptionsBool(newArr)
+            }}/></li>
+    )
+}
+ const BooleanAnswer = ()=> {
+    const useCont = useContext(QuestionContext)
+    const optionsBool = useCont?.optionsBool!
+    const setOptionsBool = useCont?.setOptionsBool!
+
+    if (optionsBool.length===0){
+        setOptionsBool((prevOptionsBool) => [
+            ...prevOptionsBool,
+            { question: 'True', id: 0 },
+            { question: 'Indifferent', id: 1 },
+            { question: 'False', id: 2 },
+          ]);
+        }
+        
+    return (
+        <div className="boolen-ans-1">
+            <ul>
+                {
+                    optionsBool.map((items:any)=>(
+                        <BoolSmall id_={items.id} key={items.id}/>
+                    ))
+                }
+            </ul>
+        </div>
     )
 }
 
-
-
-interface imType {
-    imageId:number,
-    image:any,
+const ModalDelete = (inp:delModalType)=> {
+    const [delYes, setDelYes] = useState(true)
+    const useCont = useContext(QuestionContext)
+    const [peace, setPeace] = [useCont?.peace!, useCont?.setPeace!]
+    return (
+        <div className="delete-modal">
+            <div className='modal-inn-101'>
+                <p>Are you sure you want to delete <span>{inp.title}</span></p>
+            <div className="del-opt-101">
+                <button className='h-lbu' onClick={(e)=> {
+                    e.preventDefault()
+                    const elly = document.querySelector(`#sss-${inp.id+1}`) as HTMLElement
+                    setDelYes(false)
+                    inp.someFunc(inp.id)
+                    elly.style.display = 'none'
+                    }}>Yes</button>
+                <button className='h-red' onClick={(e)=> {
+                    e.preventDefault()
+                    const elly = document.querySelector(`#sss-${inp.id+1}`) as HTMLElement
+                    elly.style.display = 'none'
+                    setDelYes(false)}}>No</button>
+            </div>
+            </div>
+        </div>
+    )
 }
-interface optionsType {
-    question:string
-    id:number
-}
-interface questionArrayType {
-    question: string
-    Options: any
-    id:number
-    typeofQ: string
-    qImage:object
-    qVideo:object
-    qAudio:object
-}
 
-interface surveytype {
-    questArray: any
-    survTitle: string
-    budget: number
-    paid: boolean
-    isPublished: boolean
+let modal = document.getElementsByClassName('delete-modal');
+window.onclick = function(event) {
+    for (let i=0; i<modal.length; i++){
+        const meddle = modal[i] as HTMLElement;
+        if (event.target === modal[i]) {
+            meddle.style.display = 'none'
+    }  
+    }
+    
 }
 
 const Create = () => {
+    const [surveyArray, setSurveyArray] = useState<surveyType[]>([
+        {
+            title: "",
+            budget:"",
+            questArray:[],
+            paid:false,
+            isPublished:false
+        }
+    ]);
+    const [peace, setPeace] = useState(false);
     const [image, setImages] = useState<imType[]>([]);
     const [video, setVideo] = useState<imType[]>([]);
     const [audio, setAudio] = useState<imType[]>([]);
     const [radio, setRadio] = useState(true);
     const [answerType, setAnswerType] = useState('radio');
-    const [surveyTitle, setSurveyTitle]= useState("");
-    const [surveyBudget, setSurveyBudget]= useState("");
     const [question, setQuestion]= useState("");
     const [renderOption, setRenderOption] = useState('');
     const [options, setOptions] = useState<optionsType[]>([]);
-    const [optionsBool, setOptionsBool] = useState<optionsType[]>([]);
+    const [userInp, setUserInp] = useState<optionsType[]>([
+        { question: '10', id: 0 },
+        { question: '50', id: 1 },
+    ]);
+    const [optionsBool, setOptionsBool] = useState<optionsType[]>([
+        { question: 'True', id: 0 },
+        { question: 'Indifferent', id: 1 },
+        { question: 'False', id: 2 },
+    ]);
     const [questionArray, setQuestionArray] = useState<questionArrayType[]>([])
 
-    function setMe(arr:any) {
-        setQuestionArray(arr)
+    function deleteArray(index:number) {
+        const newArr = [...questionArray];
+        newArr.splice(index, 1)
+
+        for (let i=0; i<newArr.length; i++) {
+            newArr[i].id = i
+        }
+        setQuestionArray(newArr)        
     }
     function handleDelete(index:number) {
         const newItems:any = [...image]
@@ -267,6 +648,12 @@ const Create = () => {
         }
     },[audio])
 
+    useEffect(()=> {
+        const newArr = [...surveyArray]
+        newArr[0].questArray = questionArray
+        setSurveyArray(newArr)
+    },[questionArray])
+
     const ninja = useCallback(()=> {
         if (question !== "" && options.length !== 0) {
              setQuestionArray([...questionArray, {"question": question, "Options": options, "id":questionArray.length, "typeofQ": answerType, "qImage": image, "qVideo": video, "qAudio":audio}])
@@ -276,12 +663,11 @@ const Create = () => {
              setVideo([])
              setAudio([])
         }
-           }, [questionArray,question, options, answerType, image, video, audio])
-
+        }, [questionArray,question, options, answerType, image, video, audio])
      const ninja1 = useCallback(()=> {
         if (question !== "" && answerType === 'uin') {
             setOptions([])
-             setQuestionArray([...questionArray, {"question": question, "Options": options, "id":questionArray.length, "typeofQ": answerType, "qImage": image, "qVideo": video, "qAudio":audio}])
+             setQuestionArray([...questionArray, {"question": question, "Options": userInp, "id":questionArray.length, "typeofQ": answerType, "qImage": image, "qVideo": video, "qAudio":audio}])
              setQuestion("")
              setImages([])
              setVideo([])
@@ -295,30 +681,50 @@ const Create = () => {
              setVideo([])
              setAudio([])
              setOptionsBool([])
+            //  setAnswerType("radio")
         }
-           }, [questionArray,question, answerType, image, video, audio])
+        }, [questionArray,question, answerType, image, video, audio])
 
   return (
-    <div className="create">
+    <QuestionContext.Provider value={{image,  video,  audio, answerType, userInp, 
+         question, renderOption, options, optionsBool, questionArray, peace,
+         setImages,setVideo,setAudio,setOptions,setOptionsBool,setQuestionArray,setAnswerType,
+         setQuestion, setRenderOption, setUserInp, setPeace}}
+      >
+        <div className="create">
+            
         <div className="create-new-001">
             <h3 className='my-4'>Create new survey</h3>
             <div className="create-ss-box">
                 <form>
                     <div className="create-s-b-item">
                         <p>Title:</p>
-                    <input type="text" placeholder='Survey title' value={surveyTitle} onChange={(e)=> {setSurveyTitle(e.target.value)}}/>
+                    <input type="text" placeholder='Survey title' value={surveyArray[0].title} onChange={(e)=> {
+                        const newArr = [...surveyArray]
+                        newArr[0].title = e.target.value
+                        setSurveyArray(newArr)
+                    }}/>
                     </div>
                     <div className="create-s-b-item">
                         <p>Budget:</p>
-                    <input type="text" placeholder='Survey Budget' value={surveyBudget} onChange={(ev)=> {
+                    <input type="text" placeholder='Survey Budget' value={surveyArray[0].budget} onChange={(ev: React.ChangeEvent<HTMLInputElement>)=> {
                         let arr = ["1","2", "3", "4", "5", "6", "7", "8", "9", "0"] 
+                         const nativeEventData = (ev.nativeEvent as any).data;
                         for (let i=0; i<arr.length; i++) {
-                            if (ev.nativeEvent.data === arr[i]) {
-                                setSurveyBudget(ev.target.value)
+                            if (nativeEventData === arr[i]) {
+                                const newArr = [...surveyArray]
+                                newArr[0].budget = ev.target.value
+                                setSurveyArray(newArr)
                                 break
                             }
                             }
-                        if (ev.nativeEvent.data === null) {setSurveyBudget(surveyBudget.slice(0, surveyBudget.length-1))}
+                        if (nativeEventData === null) {
+                            const newArr = [...surveyArray]
+                            const yu = ev.target.value
+                            yu.slice(0, yu.length-1)
+                            newArr[0].budget = yu
+                            setSurveyArray(newArr)
+                        }
                     }}/>
                     </div>
                     <div className="create-question-box">
@@ -398,7 +804,7 @@ const Create = () => {
                         </div>        
                         <div className="answer-0032">
                             {answerType==='tof' && (
-                                <BooleanAnswer arr={optionsBool} setArr={setOptionsBool}/>
+                               <BooleanAnswer/>
                             )}
                             {answerType === 'radio' && (
                                <>
@@ -413,12 +819,14 @@ const Create = () => {
                                        ()=> {
                                         if (options.length < 5) {
                                             let done = true
-                                           for (let i=0; i<options.length; i++) {
-                                           if (options[i]['question'].toLowerCase().trim() !== renderOption.toLowerCase().trim()) {}
-                                           else {done=false; break} 
-                                       }
-                                       if (done) {setOptions([...options, {"question" : renderOption, "id": options.length}])}
-                                        setRenderOption("")
+                                            if (renderOption !== ""){
+                                                for (let i=0; i<options.length; i++) {
+                                                    if (options[i]['question'].toLowerCase().trim() !== renderOption.toLowerCase().trim()) {}
+                                                    else {done=false; break} 
+                                                }
+                                                if (done) {setOptions([...options, {"question" : renderOption, "id": options.length}])}
+                                                    setRenderOption("")
+                                            }
                                         }
                                        }
                                    }><FaPlus/>Add option</p>
@@ -468,19 +876,62 @@ const Create = () => {
                                 <div className="define-umax-11">
                                 <div className='ctn-items-define-umax'>
                                     <p>Minimum amount of words : </p>
-                                <input type="text" className='gen-input' placeholder='Minimum number of words'/>
+                                <input type="text" className='gen-input' placeholder='Minimum number of words' value={userInp[0].question}
+                                onChange={(ev)=>{
+                                    let arr = ["1","2", "3", "4", "5", "6", "7", "8", "9", "0"] 
+                                    const nativeEventData = (ev.nativeEvent as any).data;
+                                    for (let i=0; i<arr.length; i++) {
+                                    
+                                        if (nativeEventData === arr[i]) {
+                                            let newArr = [...userInp]
+                                            newArr[0].question = ev.target.value
+                                            if (Number(ev.target.value) <= 25) {
+                                                setUserInp(newArr)
+                                            }
+                                            else {
+                                                alert("Omo, guy na 25 be the max")
+                                            } break
+                                        }
+                                        }
+                                    if (nativeEventData === null) {
+                                        let newArr = [...userInp]
+                                        newArr[0].question = newArr[0].question.slice(0, newArr[0].question.length-1)
+                                        setUserInp(newArr)
+                                    }
+                                }}/>
                                 </div>
                                 <div className='ctn-items-define-umax'>
                                     <p>Maximum amount of words : </p>
-                                <input type="text" className='gen-input' placeholder='Maximum number of words'/>
+                                <input type="text" className='gen-input' placeholder='Maximum number of words' value={userInp[1].question}
+                                onChange={(ev)=>{
+                                    let arr = ["1","2", "3", "4", "5", "6", "7", "8", "9", "0"] 
+                                    const nativeEventData = (ev.nativeEvent as any).data;
+                                    for (let i=0; i<arr.length; i++) {
+                                    
+                                        if (nativeEventData === arr[i]) {
+                                            let newArr = [...userInp]
+                                            newArr[1].question = ev.target.value
+                                            if (Number(ev.target.value) <= 50) {
+                                                setUserInp(newArr)
+                                            }
+                                            else {
+                                                alert("Omo, guy na 50 be the max")
+                                            } break
+                                        }
+                                        }
+                                    if (nativeEventData === null) {
+                                        let newArr = [...userInp]
+                                        newArr[1].question = newArr[1].question.slice(0, newArr[1].question.length-1)
+                                        setUserInp(newArr)
+                                    }
+                                }}
+                                />
                                 </div>
                             </div>
                             )}
-                            
                         </div>                
                     </div>
                     <button className='q-ader-01' onClick={(e)=> {
-                        console.log(questionArray)
                         e.preventDefault()
                         if (answerType === 'radio' || answerType === 'multiple') {
                             ninja()
@@ -488,20 +939,37 @@ const Create = () => {
                         else if (answerType==='uin' || answerType === 'tof') {
                             ninja1()
                         }
-
                     }}><FaPlus/> Add Question</button>
-                      <div className="view-question-prev">
+                    {
+                        questionArray.length === 0 ?"" : (
+                            <div className="view-question-prev">
                         <h3 className='my-6'>Preview Questions</h3>
-
-                        <div className="prev-11-q">
+                        <div className="prev-11-q" id="use-effect-strong-pass-you">
                             {
                                 questionArray.map(items=> (
-                                    <PreviewQ quest={items.question} arr1={items.Options} type={answerType} id_={items.id} arr={questionArray} setArr={setMe}/>
-                                ))
+                                    <>
+                                    <PreviewQ id_={items.id} key={items.id}/>
+                                    <div className="delete-area-102">
+                                        <button className="flex items-center px-4 py-3 justify-around"
+                                            onClick={(e)=>{
+                                                e.preventDefault()
+                                                const elly = document.querySelector(`#sss-${items.id+1}`) as HTMLElement
+                                                elly.style.display = 'block'
+                                            }}
+                                        >
+                                            <FaTimes/>Delete</button>
+                                       <div id={`sss-${items.id+1}`} className="p-none">
+                                            <ModalDelete title={`Option ${items.id+1}`} bool={true} someFunc={deleteArray} id={items.id} key={items.id}/>
+                                       </div>
+                                    </div>
+                                </>
+                        ))
                             }
                         </div>
-                        </div>      
-                    <div className="float-right-001 flex gap-4 justify-end m-4">
+                        </div>  
+                        )
+                    }    
+                    <div className="float-right-001 flex gap-4 justify-end m-4 ode-1">
                         <button className='q-ader-01'>Save</button>
                         <button className='q-ader-01'>Publish</button>
                     </div>
@@ -509,9 +977,49 @@ const Create = () => {
             </div>
         </div>
         <div className="edit-old-002">
-            <h3>Edit existing survey</h3>
+            <h3 className="">Edit existing survey</h3>
+            <div className="edit-ext-surv-111">
+                <div className="small-ed-papa-111">
+                    <h3 className="ees-111"><a href='#'>Truth that despairs</a></h3>
+                </div>
+                <div className="ed-padj-det-111">
+                    <p className="ed-1-date"><span className='font-bold'>Last Edited:</span> 25-12-2023</p>
+                    <p className="ed-1-date"><span className='font-bold'>Created:</span> 25-5-2023</p>
+                    <p className="ed-1-date"><span className='font-bold'>Questions:</span> 32</p>
+                </div>
+                <div className="cnt2-f0item-1">
+                    <button className="del-111">Delete</button>
+                </div>
+            </div>
+            <div className="edit-ext-surv-111">
+                <div className="small-ed-papa-111">
+                    <h3 className="ees-111"><a href='#'>Truth that despairs</a></h3>
+                </div>
+                <div className="ed-padj-det-111">
+                    <p className="ed-1-date"><span className='font-bold'>Last Edited:</span> 25-12-2023</p>
+                    <p className="ed-1-date"><span className='font-bold'>Created:</span> 25-5-2023</p>
+                    <p className="ed-1-date"><span className='font-bold'>Questions:</span> 32</p>
+                </div>
+                <div className="cnt2-f0item-1">
+                    <button className="del-111">Delete</button>
+                </div>
+            </div>
+            <div className="edit-ext-surv-111">
+                <div className="small-ed-papa-111">
+                    <h3 className="ees-111"><a href='#'>Truth that despairs</a></h3>
+                </div>
+                <div className="ed-padj-det-111">
+                    <p className="ed-1-date"><span className='font-bold'>Last Edited:</span> 25-12-2023</p>
+                    <p className="ed-1-date"><span className='font-bold'>Created:</span> 25-5-2023</p>
+                    <p className="ed-1-date"><span className='font-bold'>Questions:</span> 32</p>
+                </div>
+                <div className="cnt2-f0item-1">
+                    <button className="del-111">Delete</button>
+                </div>
+            </div>
         </div>
     </div>
+    </QuestionContext.Provider>
   )
 }
 

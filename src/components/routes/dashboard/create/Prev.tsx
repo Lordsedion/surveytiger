@@ -1,68 +1,73 @@
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState, useCallback, useContext} from 'react'
 import {FaPlus, FaTimes} from 'react-icons/fa'
 import {BsCardImage,BsFillCameraVideoFill} from 'react-icons/bs'
 import {AiFillAudio} from 'react-icons/ai'
 import SomeCirc from './Create.tsx'
+import { QuestionContext } from './Create.tsx'
 
 
 const Individ = (inp:Tindiv)=> {
-    const [state, setState] = useState(inp.opt)
+    const useCont = useContext(QuestionContext)
+    const id_ = inp.id
+    const id = inp.mid
+    const [state1, setState1] = useState(inp.opt)
+    const questionArray= useCont?.questionArray!
+
     return (
         <>
-            <p className='my-3 font-bold flex items-center gap-2'><SomeCirc/><input type='text' value={state} onChange={
+            <div className='my-3 font-bold flex items-center gap-2' key={id_}>
+                <SomeCirc/><input type='text' value={state1} onChange={
                 (e)=> {
-                    inp.setArr(e.target.value)
-                    setState(e.target.value)
-                    inp.qarr[inp.mid]['Options'][inp.id]['question'] = e.target.value
-                    inp.setQ(inp.qarr)
-            }}/></p>
+                    setState1(e.target.value)
+                    const newArray = [...questionArray]
+                    newArray[id].Options[id_] = e.target.value
+                    inp.setArr(newArray)
+            }}/></div>
         </>
     )
 }
-
-interface TpreviewQ {
-    quest:string
-    arr1:any
-    arr:any
-    setArr:any
-    id_:any
-    type:string
-}
 interface Tindiv {
     opt:string
-    arr:any
-    setArr:any
-    qarr:any
-    setQ:any
     id:number
+    setArr:any
     mid:number
     type:string
 }
-const PreviewQ = (inp:TpreviewQ)=> {
-    const [state, setState] = useState(inp.quest)
-    const [note, setNote] = useState("")
-    const [imag, setImage] = useState(inp.arr[inp.id_].qImage)
+interface pType{
+    id_:number
+}
+const PreviewQ = (inp:pType)=> {
+    const useCont = useContext(QuestionContext)
+    const id_ = inp.id_
+    // const [answerType, surveyTitle] = [useCont?.answerType, useCont?.surveyTitle]
+    const questionArray= useCont?.questionArray!
+    const setQuestionArray= useCont?.setQuestionArray!
 
-    // useEffect(()=>{
-    //     if (inp.arr[inp.id_].qImage.length>0) {document.getElementById("q-image1")?.setAttribute('value', inp.arr[inp.id_].qImage[0]["image"])}
-    //     else {
-    //         let inpe = document.getElementById("q-image1") as HTMLInputElement
-    //         inpe.value = ''
-    //     }
-    //     console.log("HI")
-    // },[inp.arr])
+    const [state, setState] = useState(questionArray[id_].question)
+    const [image, setImage] = useState(questionArray[id_].qImage)
+    const [video, setVideo] = useState(questionArray[id_].qVideo)
+    const [audio, setAudio] = useState(questionArray[id_].qAudio)
+    const options = questionArray[id_].Options
+
+    useEffect(()=>{
+        if (image.length>0) {document.getElementById("q-image1")?.setAttribute('value', image[0]["image"])}
+        else {
+            let inpe = document.getElementById("q-image1") as HTMLInputElement
+            inpe.value = ''
+        }
+        console.log("HI", questionArray, options)
+    },[questionArray])
 
     function PreviewImage1(e:any){
         if (e.target.files.length > 0){
             for (let i = 0; i < e.target.files.length; i++) {
-                 if (i+inp.arr[inp.id_].qImage.length >4){
+                 if (i+image.length >4){
                     return alert('Maximum of 5 photos!')
                 }
-                inp.arr[inp.id_].qImage.push({"imageId": inp.arr[inp.id_].qImage.length,"image": URL.createObjectURL(e.target.files[i])})
-                let newArr = inp.arr[inp.id_].qImage
-                setImage(newArr)
-                console.log(newArr)
-                inp.setArr(inp.arr)
+                setImage([...image,{ "imageId": image.length,"image": URL.createObjectURL(e.target.files[i])}])
+                const newArray = [...questionArray]
+                newArray[id_].qImage = image
+                setQuestionArray(newArray)
             }
         }
     }
@@ -77,7 +82,10 @@ const PreviewQ = (inp:TpreviewQ)=> {
         if (isAllowed) {
            if (e.target.files.length > 0){
             for (let i = 0; i < e.target.files.length; i++) {
-                inp.arr[inp.id_].qVideo.push({"imageId": inp.arr[inp.id_].qVideo.length,"image": URL.createObjectURL(e.target.files[i])})
+                setVideo([...video,{ "imageId": video.length,"image": URL.createObjectURL(e.target.files[i])}])
+                const newArray = [...questionArray]
+                newArray[id_].qVideo = video
+                setQuestionArray(newArray)
             }
         } 
         } else {
@@ -96,10 +104,13 @@ const PreviewQ = (inp:TpreviewQ)=> {
         if (isAllowed) {
            if (e.target.files.length > 0){
             for (let i = 0; i < e.target.files.length; i++) {
-                if (i+inp.arr[inp.id_].qAudio.length >2){
+                if (i+audio.length >2){
                     return alert('Maximum of 3 audio files!')
                 }
-                inp.arr[inp.id_].qAudio.push({"imageId": inp.arr[inp.id_].qAudio.length,"image": URL.createObjectURL(e.target.files[i])})
+                setAudio([...image,{ "imageId": video.length,"image": URL.createObjectURL(e.target.files[i])}])
+                const newArray = [...questionArray]
+                newArray[id_].qAudio = audio
+                setQuestionArray(newArray)
             }
         } 
         } else {
@@ -109,35 +120,42 @@ const PreviewQ = (inp:TpreviewQ)=> {
     }
 
     function handleDelete1(index:number) {
-        const newItems = [...inp.arr[inp.id_].qImage]
+        const newItems = [...image]
         newItems.splice(index, 1)
         for (let i=0; i<newItems.length; i++) {
             newItems[i]["imageId"] = i
         }
-        inp.arr[inp.id_].qImage = newItems
-        // setIm(inp.arr[inp.id_].qImage)
+        const newArray = [...questionArray]
+        newArray[id_].qImage = newItems
+        setImage(newItems)
+        setQuestionArray(newArray)
     }
     function handleDeleteA1(index:number) {
-        const newItems = [...inp.arr[inp.id_].qAudio]
+        const newItems = [...audio]
         newItems.splice(index, 1)
         for (let i=0; i<newItems.length; i++) {
             newItems[i]["imageId"] = i
         }
-        inp.arr[inp.id_].qAudio = newItems
+        const newArray = [...questionArray]
+        newArray[id_].qAudio = newItems
+        setAudio(newItems)
+        setQuestionArray(newArray)
     }
     function handleDeleteV1(index:number) {
-        inp.arr[inp.id_].qVideo = []
+        setVideo([])
     }
 
     return (
         <div className="prev-11-q-item my-8">
             <div className="prev-11-w-1 flex gap-4" onClick={()=>{
             }}>
-                <p className='font-bold'>{inp.id_+1}</p>
+                <p className='font-bold'>{id_+1}</p>
                 <textarea name="prev-q-1" id="" cols={50} rows={3} value={state} onChange={
                     (e)=> {
                         setState(e.target.value)
-                        inp.arr[inp.id_].question = e.target.value
+                        const newArray = [...questionArray]
+                        newArray[id_].question = e.target.value
+                        setQuestionArray(newArray)
                     }
                 }></textarea>
             </div>
@@ -170,7 +188,7 @@ const PreviewQ = (inp:TpreviewQ)=> {
             </div>
             <div className="image-section-que my-5 mx-8 flex gap-3" id='image-section-que'>
                 {
-                    imag.map((img:any) => (
+                    image.map((img:any) => (
                         <div className="relative" key={img.imageID}>
                             <img src={img.image} alt={`${img.imageId}`} className='q-image-iden'/> 
                             <p className='lov-112' onClick={()=>{handleDelete1(img.imageId)}}><FaTimes/></p>
@@ -178,7 +196,7 @@ const PreviewQ = (inp:TpreviewQ)=> {
                     ))
                 }
                 {
-                    inp.arr[inp.id_].qVideo.map((img:any) => (
+                    video.map((img:any) => (
                         <div className="relative">
                             <video src={img.image} className='q-image-iden' id='q-video-iden'/> 
                             <p className='lov-112' onClick={()=>{handleDeleteV1(img.imageId)}}><FaTimes/></p>
@@ -186,7 +204,7 @@ const PreviewQ = (inp:TpreviewQ)=> {
                     ))
                 }
                 {
-                    inp.arr[inp.id_].qAudio.map((img:any) => (
+                    audio.map((img:any) => (
                         <div className="relative p-1 nk-w4">
                             <audio controls id='q-audio-iden'>
                                 <source src={img.image}/>
@@ -197,17 +215,17 @@ const PreviewQ = (inp:TpreviewQ)=> {
                 }
             </div>
             {
-                inp.arr[inp.id_].typeofQ === 'uin' && (
+                questionArray[id_].typeofQ === 'uin' && (
                     <div className="pol-12">
                         <textarea name="op332" id="" cols={80} rows={2} placeholder='Enter your answer'></textarea>
                     </div>
                 )
             }
             {
-                inp.arr[inp.id_].typeofQ !== 'uin' && (
+                questionArray[id_].typeofQ !== 'uin' && (
                     <div className="ans-pre">
-                    {inp.arr1.map((item:any)=> (
-                        <Individ opt={item.question} id={item.id} type={inp.type} setArr={setNote} mid={inp.id_} arr={note} qarr={inp.arr} setQ={inp.setArr}/>
+                    {options.map((item:any)=> (
+                        <Individ opt={item.question} id={item.id} setArr={setQuestionArray} type={questionArray[id_].typeofQ} mid={id_}/>
                     ))}
 
             </div>

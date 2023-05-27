@@ -108,6 +108,9 @@ body {
 .white {
   color: #fff !important;
 }
+.p-none {
+  display:none;
+}
 .border-radius {
   border-radius: 0.3rem;
 }

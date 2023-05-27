@@ -36,7 +36,7 @@ const Navbar = () => {
     <div className={`${scrolled ? 'nav-container nav-c-bbb' : 'nav-container'} py-4`}>
         <h2 className="logo-header"><a href="/">SurveyTiger</a></h2>
         <div className="header-links">
-         <Link to={'/dashboard'}><a className='navLinks'> Dashboard</a></Link> 
+         <Link to={'/dashboard'}><div className='navLinks'> Dashboard</div></Link> 
           <a href='#' className='navLinks'> Create</a>
           <a href='#' className='navLinks'> Surveys</a>
           {/* <a href='#' className='navLinks'> Responses</a> */}
