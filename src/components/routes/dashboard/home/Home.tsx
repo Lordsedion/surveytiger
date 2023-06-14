@@ -77,9 +77,6 @@ const SubDashboard = ()=> {
         <SubDashItem title='Danger of Ai' time={30} total={50} price={1.2}/>
         <SubDashItem title='Perfect utopia' time={10} total={20} price={1.0}/>
         <SubDashItem title='Would you rather' time={60} total={50} price={2}/>
-        <div className='disobedient-101'>
-          <button>View more</button>
-        </div>
       </div>
         
     </div>

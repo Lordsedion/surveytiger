@@ -2,9 +2,7 @@ import React, {useEffect, useState, useCallback, createContext, useContext} from
 import {FaPlus, FaTimes} from 'react-icons/fa'
 import {BsCardImage,BsFillCameraVideoFill} from 'react-icons/bs'
 import {AiFillAudio} from 'react-icons/ai'
-import './create.css'
-import { error } from 'console'
-import { title } from 'process'
+import '../create/create.css'
 
 export const QuestionContext = createContext<MyContextValueType | undefined>(undefined);
 
@@ -112,7 +110,7 @@ interface delModalType {
     someFunc: any
     id:number
 }
-// =====================================INTERFACE ENDS=======================================
+// =====================================INTERFACE ENDS=============================================
 
 const SomeCirc = ()=> {
     return (
@@ -167,12 +165,12 @@ const Individ = (inp:Tindiv)=> {
                             
                                 if (nativeEventData === arr[i]) {
                                     const newArray = [...questionArray]
-                                    if (Number(ev.target.value) <= 5) {
+                                    if (Number(ev.target.value) <= 25) {
                                         newArray[id].Options[id_].question = ev.target.value
                                         inp.setArr(newArray)
                                     }
                                     else {
-                                        alert("Minimum of 5")
+                                        alert("Omo, guy na 25 be the max")
                                     } break
                                 }
                                 }
@@ -200,7 +198,7 @@ const Individ = (inp:Tindiv)=> {
                                         inp.setArr(newArray)
                                     }
                                     else {
-                                        alert("Maximum of 50 letters.")
+                                        alert("Omo, guy na 50 be the max")
                                     } break
                                 }
                                 }
@@ -516,7 +514,7 @@ window.onclick = function(event) {
     
 }
 
-const Create = () => {
+const Edit = () => {
     const [surveyArray, setSurveyArray] = useState<surveyType[]>([
         {
             title: "",
@@ -976,51 +974,9 @@ const Create = () => {
                 </form>
             </div>
         </div>
-        <div className="edit-old-002">
-            <h3 className="">Edit existing survey</h3>
-            <div className="edit-ext-surv-111">
-                <div className="small-ed-papa-111">
-                    <h3 className="ees-111"><a href='#'>Truth that despairs</a></h3>
-                </div>
-                <div className="ed-padj-det-111">
-                    <p className="ed-1-date"><span className='font-bold'>Last Edited:</span> 25-12-2023</p>
-                    <p className="ed-1-date"><span className='font-bold'>Created:</span> 25-5-2023</p>
-                    <p className="ed-1-date"><span className='font-bold'>Questions:</span> 32</p>
-                </div>
-                <div className="cnt2-f0item-1">
-                    <button className="del-111">Delete</button>
-                </div>
-            </div>
-            <div className="edit-ext-surv-111">
-                <div className="small-ed-papa-111">
-                    <h3 className="ees-111"><a href='#'>Truth that despairs</a></h3>
-                </div>
-                <div className="ed-padj-det-111">
-                    <p className="ed-1-date"><span className='font-bold'>Last Edited:</span> 25-12-2023</p>
-                    <p className="ed-1-date"><span className='font-bold'>Created:</span> 25-5-2023</p>
-                    <p className="ed-1-date"><span className='font-bold'>Questions:</span> 32</p>
-                </div>
-                <div className="cnt2-f0item-1">
-                    <button className="del-111">Delete</button>
-                </div>
-            </div>
-            <div className="edit-ext-surv-111">
-                <div className="small-ed-papa-111">
-                    <h3 className="ees-111"><a href='#'>Truth that despairs</a></h3>
-                </div>
-                <div className="ed-padj-det-111">
-                    <p className="ed-1-date"><span className='font-bold'>Last Edited:</span> 25-12-2023</p>
-                    <p className="ed-1-date"><span className='font-bold'>Created:</span> 25-5-2023</p>
-                    <p className="ed-1-date"><span className='font-bold'>Questions:</span> 32</p>
-                </div>
-                <div className="cnt2-f0item-1">
-                    <button className="del-111">Delete</button>
-                </div>
-            </div>
-        </div>
     </div>
     </QuestionContext.Provider>
   )
 }
 
-export default Create
+export default Edit

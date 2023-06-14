@@ -35,6 +35,7 @@ button {
   --color-r-bg: rgba(9, 9, 12, 0.495);
   --color-tr-bg: rgb(5, 5, 5);
   --color-lbg: rgb(225, 220, 220);
+  --some-goofy: rgba(225, 239, 255, 0.693);
   --color-lbg-1: rgb(242, 241, 241);
   --transparent: #ffffff00;
   --color-light-text: rgb(40, 40, 40);
@@ -71,6 +72,7 @@ button {
   --color-light-text: rgb(255, 255, 255);
   --box-shadow: 4px 4px 10px rgba(69, 68, 68, 0.348);
   --box-shadow-slim: 1px 1px 3px rgba(69, 68, 68, 0.348);
+  --some-goofy: rgba(44, 43, 43, 0.68);
 }
 
 body {

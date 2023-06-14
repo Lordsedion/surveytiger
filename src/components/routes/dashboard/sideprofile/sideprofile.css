@@ -1,7 +1,8 @@
 .sideprofile-ctn {
     display: flex;
     flex-direction: column;
-    max-width: 17%;
+    max-width: 20%;
+    min-width: 17%;
     overflow-x: hidden;
     overflow-y: auto;
     height: 100vh;
